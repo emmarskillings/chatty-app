@@ -39,7 +39,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log("componentDidMount <App />");
-    // 
+    //
     // let socket = new WebSocket('ws://localhost:3001/');
     // this.state.socket = socket;
 
@@ -63,7 +63,7 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand"><FontAwesomeIcon icon="comments" /> Chatty</a>
+          <a href="/" className="navbar-brand"> Chatty</a>
         </nav>
         <MessageList messages={this.state.messages}/>
         <ChatBar addMessage={this.addMessage.bind(this)} name={this.state.currentUser.name}/>
@@ -72,3 +72,4 @@ class App extends Component {
   }
 }
 export default App;
+//<FontAwesomeIcon icon="comments" />
