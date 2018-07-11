@@ -11,4 +11,4 @@ import Message from './Message.jsx';
 import ChatBar from './ChatBar.jsx';
 
 //ReactDOM.render(<App />, document.getElementById('react-root'));
-ReactDOM.render(<App />, document.getElementById('App'));
+ReactDOM.render(<App />, document.getElementById('react-root'));
