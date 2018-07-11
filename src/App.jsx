@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faComments } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faComments)
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +54,7 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
+          <a href="/" className="navbar-brand"><FontAwesomeIcon icon="comments" /> Chatty</a>
         </nav>
         <MessageList messages={this.state.messages}/>
         <ChatBar addMessage={this.addMessage.bind(this)} name={this.state.currentUser.name}/>

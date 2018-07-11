@@ -1,16 +1,16 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
+@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Roboto+Mono:400,400i,700,700i');
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 
 body {
   background: white;
   color: black;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto Mono', monospace;
   font-size: 14px;
   margin: 70px 0;
 }
 
 .chatbar {
-  background: gold;
+  background: #ffe680;
   border-top: 1px solid black;
   bottom: 0;
   display: flex;
@@ -38,7 +38,12 @@ body {
   flex: 2;
 }
 
+.messages {
+  padding-top: 40px;
+}
+
 .message {
+  font-family: 'Roboto Mono', monospace;
   display: flex;
   padding: 5px;
 }
@@ -65,24 +70,38 @@ body {
 }
 
 .navbar {
-  background: gold;
-  border-bottom: 1px solid black;
-  height: 60px;
+  font-family: 'Nanum Pen Script', cursive;
+  background: linear-gradient(to bottom, #fff0b3, #ffe680);
+  height: 80px;
   left: 0;
   padding: 0 10px;
   position: fixed;
   right: 0;
   top: 0;
+  display: block;
 }
+
+// .navbar::after{
+//   position:absolute;
+//   bottom: -50px;
+//   left: 0px;
+//   width: 100%;
+//   content:" ";
+//   background: radial-gradient(circle at 50% 0%, #ffe680 25%, #fff0b3 26%, white 40%);
+//   background-size:50px 100px;
+//   height:50px;
+//   background-repeat: repeat-x;
+// }
 
 .navbar-brand {
   color: inherit;
+  text-shadow: 2px 2px #b38f00;
   display: block;
   float: left;
-  font-weight: 700;
-  font-size: 28px;
+  font-weight: 500;
+  font-size: 50px;
   height: 60px;
   line-height: 60px;
-  padding: 0 10px;
+  padding: 5px 10px;
   text-decoration: none;
 }
