@@ -35,13 +35,13 @@ class App extends Component {
     this.setState({
       messages: newMessages
     });
+    this.socket.send(JSON.stringify(newMessage));
   }
 
   componentDidMount() {
     console.log("componentDidMount <App />");
-
     let socket = new WebSocket('ws://localhost:3001/');
-    this.state.socket = socket;
+    this.socket = socket;
 
     // socket.addEventListener('message', (event) => {
     //   console.log('Connected to server', event)

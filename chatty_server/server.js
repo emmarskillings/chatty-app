@@ -18,5 +18,8 @@ const wss = new SocketServer({ server });
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected');
+  ws.onmessage = function(event) {
+    console.log(`User ${JSON.parse(event.data).username} said ${JSON.parse(event.data).content}`)
+  }
   ws.on('close', () => console.log('Client disconnected'));
 })
