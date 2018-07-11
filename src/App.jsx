@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
-import MessageList from './MessageList.jsx'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComments } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faComments)
+import MessageList from './MessageList.jsx';
+// import { library } from '@fortawesome/fontawesome-svg-core';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faComments } from '@fortawesome/free-solid-svg-icons';
+//
+// library.add(faComments)
 
 class App extends Component {
   constructor(props) {
@@ -39,6 +39,15 @@ class App extends Component {
 
   componentDidMount() {
     console.log("componentDidMount <App />");
+    // 
+    // let socket = new WebSocket('ws://localhost:3001/');
+    // this.state.socket = socket;
+
+    // socket.addEventListener('message', (event) => {
+    //   console.log('Connected to server', event)
+    // })
+
+
     setTimeout(() => {
       console.log("Simulating incoming message");
       // Add a new message to the list of messages in the data store
