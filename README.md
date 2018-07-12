@@ -1,4 +1,4 @@
-#Chatty Project
+# Chatty Project
 
 Chatty Kathy is a simple, single-page chat application created using React and WebSockets.
 
