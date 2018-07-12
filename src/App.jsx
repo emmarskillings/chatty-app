@@ -14,28 +14,17 @@ class App extends Component {
 
     this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: [
-        {
-          id: 1,
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-        },
-        {
-          id: 2,
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
-        }
-      ]
+      messages: []
     };
   }
 
   addMessage(newMessage) {
-    const oldMessages = this.state.messages;
-    const newMessages = [...oldMessages, newMessage];
-    this.setState({
-      messages: newMessages
-    });
     this.socket.send(JSON.stringify(newMessage));
+  }
+
+  addUser(newUser) {
+    this.socket.send(JSON.stringify(newUser));
+
   }
 
   componentDidMount() {
@@ -43,15 +32,43 @@ class App extends Component {
     let socket = new WebSocket('ws://localhost:3001/');
     this.socket = socket;
 
-    // socket.addEventListener('message', (event) => {
-    //   console.log('Connected to server', event)
-    // })
+    this.socket.onopen = (event) => {
+      console.log("Connected to server");
+    };
 
+    this.socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      switch(data.type) {
+        case 'incomingMessage':
+          const newMessage = data;
+          const oldMessages = this.state.messages;
+          const newMessages = [...oldMessages, newMessage];
+          this.setState({
+            messages: newMessages
+          });
+          break;
+        case 'incomingNotification':
+          const newNotification = data;
+          const oldNotifications = this.state.messages;
+          const newNotifications = [...oldNotifications, newNotification];
+          const newUser = data;
+          const oldUser = this.state.currentUser;
+          this.setState({
+            currentUser: newUser,
+            messages: newNotifications
+          });
+          break;
+        default:
+          throw new Error("Unknown event type " + data.type);
+      }
+
+    }
 
     setTimeout(() => {
       console.log("Simulating incoming message");
       // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
+      const newMessage = {type: 'incomingMessage', id: 3, username: "Michelle", content: "Hello there!"};
       const messages = this.state.messages.concat(newMessage)
       // Update the state of the app component.
       // Calling setState will trigger a call to render() in App and all child components.
@@ -65,8 +82,8 @@ class App extends Component {
         <nav className="navbar">
           <a href="/" className="navbar-brand"><FontAwesomeIcon icon="comments" /> Chatty</a>
         </nav>
-        <MessageList messages={this.state.messages}/>
-        <ChatBar addMessage={this.addMessage.bind(this)} name={this.state.currentUser.name}/>
+        <MessageList messages={this.state.messages} content={this.state.content}/>
+        <ChatBar addMessage={this.addMessage.bind(this)} addUser={this.addUser.bind(this)} name={this.state.currentUser.name}/>
       </div>
     );
   }

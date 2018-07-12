@@ -2,16 +2,13 @@ import React, {Component} from 'react';
 
 const ChatBar = (props) => {
 
-  const generateUniqueKey = function(){
-    const uniqueKey = Math.random().toString(36).replace('0.','').split('').slice(0,6).join('');
-    return uniqueKey;
-  }
+  const uuidv1 = require('uuid/v1');
 
   const sendMessage = function(event) {
     if (event.key === 'Enter') {
-      // event.preventDefault();
       const newMessage = {
-        id: generateUniqueKey(),
+        type: 'postMessage',
+        id: uuidv1(),
         username: document.getElementById('username').value,
         content: event.target.value
       }
@@ -23,9 +20,24 @@ const ChatBar = (props) => {
     }
   }
 
+  const sendUser = function(event) {
+    if (event.key === 'Enter') {
+      const newUser = {
+        type: 'postNotification',
+        id: uuidv1(),
+        username: event.target.value,
+        content: `${props.name} changed their name to ${event.target.value}`
+      }
+      props.addUser(newUser);
+    }
+    else {
+      return false;
+    }
+  }
+
   return (
     <footer className="chatbar">
-      <input id='username' className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={props.name} />
+      <input onKeyDown={sendUser} id='username' className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={props.name} />
       <input onKeyDown={sendMessage} className="chatbar-message" placeholder="Type a message and hit ENTER" />
     </footer>
   );
