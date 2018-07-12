@@ -38,4 +38,4 @@ Chatty Kathy is a simple, single-page chat application created using React and W
 
 ## Screenshots
 
-!["Screenshot of Chatty Kathy"](https://github.com/emmarskillings/tweeter/blob/master/docs/tweeter.png)
+!["Screenshot of Chatty Kathy"](https://github.com/emmarskillings/chatty-app/blob/master/docs/chatty-cathy.png)
