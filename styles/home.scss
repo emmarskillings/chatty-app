@@ -11,7 +11,7 @@ body {
 
 .chatbar {
   background: #ffe680;
-  border-top: 1px solid black;
+  //border-top: 1px solid black;
   bottom: 0;
   display: flex;
   left: 0;
@@ -22,7 +22,8 @@ body {
 
 .chatbar-message,
 .chatbar-username {
-  border: 1px solid black;
+  border: none;
+  border-radius: 5px;
   display: block;
   height: 40px;
   line-height: 40px;
@@ -70,7 +71,6 @@ body {
 }
 
 .navbar {
-  font-family: 'Nanum Pen Script', cursive;
   background: linear-gradient(to bottom, #fff0b3, #ffe680);
   height: 80px;
   left: 0;
@@ -81,33 +81,32 @@ body {
   display: block;
 }
 
-// .navbar::after{
-//   position:absolute;
-//   bottom: -50px;
-//   left: 0px;
-//   width: 100%;
-//   content:" ";
-//   background: radial-gradient(circle at 50% 0%, #ffe680 25%, #fff0b3 26%, white 40%);
-//   background-size:50px 100px;
-//   height:50px;
-//   background-repeat: repeat-x;
-// }
-
 .navbar-brand {
   color: inherit;
-  text-shadow: 2px 2px #b38f00;
   display: block;
-  float: left;
-  font-weight: 500;
-  font-size: 50px;
+
   height: 60px;
   line-height: 60px;
   padding: 10px;
   text-decoration: none;
 }
 
-.notification-content {
-  //color: #ffe680;
-  padding:20px;
+.brand {
+  font-family: 'Nanum Pen Script', cursive;
+  text-shadow: 2px 2px #b38f00;
+  float: left;
+  font-weight: 500;
+  font-size: 50px;
+}
+
+.clients {
+  float: right;
+}
+
+.notification {
+  font-family: 'Roboto Mono', monospace;
+  display: flex;
+  padding: 5px;
+  padding-left: 20px;
   font-style: italic;
 }

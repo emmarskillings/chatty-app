@@ -27,6 +27,7 @@ wss.broadcast = function broadcast(data) {
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
+
   const clients = {
     type: 'incomingClients',
     content: wss.clients.size
@@ -39,7 +40,6 @@ wss.on('connection', (ws) => {
       case 'postMessage':
         data.type = 'incomingMessage'
         wss.broadcast(JSON.stringify(data));
-        console.log(`User ${data.username} said ${JSON.parse(event.data).content}`);
         break;
       case 'postNotification':
         data.type = 'incomingNotification';

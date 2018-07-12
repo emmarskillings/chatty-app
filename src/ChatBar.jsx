@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const ChatBar = (props) => {
 
   const uuidv1 = require('uuid/v1');
 
+  // create new message object from message input data
   const sendMessage = function(event) {
     if (event.key === 'Enter') {
       const newMessage = {
@@ -20,6 +21,7 @@ const ChatBar = (props) => {
     }
   }
 
+  // create new notification object from user input info
   const sendNotification = function(event) {
     if (event.key === 'Enter') {
       const newNotification = {
