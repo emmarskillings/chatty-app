@@ -14,17 +14,22 @@ class App extends Component {
 
     this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: []
+      messages: [],
+      clients: ''
     };
   }
 
-  addMessage(newMessage) {
-    this.socket.send(JSON.stringify(newMessage));
-  }
-
-  addUser(newUser) {
-    this.socket.send(JSON.stringify(newUser));
-
+  addMessage(data) {
+    this.socket.send(JSON.stringify(data));
+    if (data.type === 'postNotification') {
+      const newUser = data.username;
+      const oldUser = this.state.currentUser;
+      this.setState({
+        currentUser: {
+          name: newUser
+        }
+      });
+    }
   }
 
   componentDidMount() {
@@ -39,6 +44,7 @@ class App extends Component {
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
+
       switch(data.type) {
         case 'incomingMessage':
           const newMessage = data;
@@ -52,13 +58,15 @@ class App extends Component {
           const newNotification = data;
           const oldNotifications = this.state.messages;
           const newNotifications = [...oldNotifications, newNotification];
-          const newUser = data;
-          const oldUser = this.state.currentUser;
           this.setState({
-            currentUser: newUser,
             messages: newNotifications
           });
           break;
+        case 'incomingClients':
+          const totalClients = data.content;
+          this.setState({
+            clients: `${totalClients} users online`
+          })
         default:
           throw new Error("Unknown event type " + data.type);
       }
@@ -80,10 +88,10 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand"><FontAwesomeIcon icon="comments" /> Chatty</a>
+          <a href="/" className="navbar-brand"><FontAwesomeIcon icon="comments" /> Chatty {this.state.clients}</a>
         </nav>
         <MessageList messages={this.state.messages} content={this.state.content}/>
-        <ChatBar addMessage={this.addMessage.bind(this)} addUser={this.addUser.bind(this)} name={this.state.currentUser.name}/>
+        <ChatBar addMessage={this.addMessage.bind(this)} name={this.state.currentUser.name}/>
       </div>
     );
   }

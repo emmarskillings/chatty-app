@@ -27,21 +27,32 @@ wss.broadcast = function broadcast(data) {
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
+  const clients = {
+    type: 'incomingClients',
+    content: wss.clients.size
+  };
+  wss.broadcast(JSON.stringify(clients));
+
   ws.onmessage = function(event) {
     const data = JSON.parse(event.data);
     switch(data.type) {
       case 'postMessage':
         data.type = 'incomingMessage'
         wss.broadcast(JSON.stringify(data));
-        console.log(`User ${data.username} said ${JSON.parse(event.data).content}`)
-        console.log(data);
+        console.log(`User ${data.username} said ${JSON.parse(event.data).content}`);
         break;
       case 'postNotification':
         data.type = 'incomingNotification';
         wss.broadcast(JSON.stringify(data));
-        console.log(data);
         break;
     }
   }
-  ws.on('close', () => console.log('Client disconnected'));
+  ws.on('close', () => {
+    console.log('Client disconnected')
+    const clients = {
+      type: 'incomingClients',
+      content: wss.clients.size
+    };
+    wss.broadcast(JSON.stringify(clients));
+  });
 })

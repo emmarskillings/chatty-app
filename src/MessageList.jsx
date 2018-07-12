@@ -6,7 +6,6 @@ class MessageList extends Component {
   render() {
     const messages = this.props.messages;
     const user = this.props.currentUser;
-    console.log(messages);
 
     const messageList = messages.map((message) => {
       if (message.type === 'incomingMessage') {
@@ -14,7 +13,7 @@ class MessageList extends Component {
       } else if (message.type === 'incomingNotification') {
         return <Notification content={message.content} />
       }
-    });  
+    });
 
 
     return (

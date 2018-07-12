@@ -20,15 +20,15 @@ const ChatBar = (props) => {
     }
   }
 
-  const sendUser = function(event) {
+  const sendNotification = function(event) {
     if (event.key === 'Enter') {
-      const newUser = {
+      const newNotification = {
         type: 'postNotification',
         id: uuidv1(),
         username: event.target.value,
         content: `${props.name} changed their name to ${event.target.value}`
       }
-      props.addUser(newUser);
+      props.addMessage(newNotification);
     }
     else {
       return false;
@@ -37,7 +37,7 @@ const ChatBar = (props) => {
 
   return (
     <footer className="chatbar">
-      <input onKeyDown={sendUser} id='username' className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={props.name} />
+      <input onKeyDown={sendNotification} id='username' className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={props.name} />
       <input onKeyDown={sendMessage} className="chatbar-message" placeholder="Type a message and hit ENTER" />
     </footer>
   );
